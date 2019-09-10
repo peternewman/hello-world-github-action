@@ -1,0 +1,10 @@
+name: Hello world
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Hello world
+      uses: g4s8/hello-world-github-action@master
