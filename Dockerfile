@@ -12,4 +12,5 @@ LABEL "com.github.actions.color"="green"
 
 WORKDIR /app
 COPY --from=build /build/rultor rultor
+RUN apk --update add git
 CMD ["/app/rultor"]

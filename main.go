@@ -52,6 +52,7 @@ func main() {
 		log.Fatalf("Failed to parse payload json: %s", err)
 	}
 	if *payload.Review.Body == "merge" {
+		// git --git-dir=$GD/.git --work-tree=$GD merge test2
 		if _, err := exec.Command("git", "checkout", "master").Output(); err != nil {
 			log.Fatalf("Failed to checkout: %s", err)
 		}
