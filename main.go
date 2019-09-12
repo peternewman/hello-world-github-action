@@ -53,11 +53,11 @@ func main() {
 	}
 	if *payload.Review.Body == "merge" {
 		// git --git-dir=$GD/.git --work-tree=$GD merge test2
-		if _, err := exec.Command("git", "checkout", "master").Output(); err != nil {
-			log.Fatalf("Failed to checkout: %s", err)
+		if out, err := exec.Command("git", "checkout", "master").Output(); err != nil {
+			log.Fatalf("Failed to checkout: %s - %s", err, out)
 		}
-		if _, err := exec.Command("git", "merge", *payload.PR.Head.Ref).Output(); err != nil {
-			log.Fatalf("Failed to merge: %s", err)
+		if out, err := exec.Command("git", "merge", *payload.PR.Head.Ref).Output(); err != nil {
+			log.Fatalf("Failed to merge: %s - %s", err, out)
 		}
 	}
 	fmt.Printf("success! payload: %s\n", payload)
