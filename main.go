@@ -59,6 +59,9 @@ func main() {
 		if out, err := exec.Command("git", "merge", *payload.PR.Head.Ref).Output(); err != nil {
 			log.Fatalf("Failed to merge: %s - %s", err, out)
 		}
+		if out, err := exec.Command("git", "push", "origin", "master").Output(); err != nil {
+			log.Fatalf("Failed to push: %s - %s", err, out)
+		}
 	}
 	fmt.Printf("success! payload: %s\n", payload)
 }
