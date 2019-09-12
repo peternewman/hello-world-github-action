@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -41,6 +42,19 @@ func (e *event) parseFile(path string) error {
 	return e.parseReader(bufio.NewReader(f))
 }
 
+func runCmd(cmd *exec.Cmd) {
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &out
+	cmd.Stderr = &stderr
+	fmt.Printf("CMD: %s\n", cmd)
+	if err := cmd.Run(); err != nil {
+		fmt.Println(stderr.String())
+		log.Fatalf("%s - %s", cmd, err)
+	}
+	fmt.Println(out.String())
+}
+
 func main() {
 	evt := os.Getenv("GITHUB_EVENT_NAME")
 	if evt != "pull_request_review" {
@@ -51,17 +65,11 @@ func main() {
 	if err := payload.parseFile(path); err != nil {
 		log.Fatalf("Failed to parse payload json: %s", err)
 	}
+	fmt.Printf("payload: %s\n", payload)
 	if *payload.Review.Body == "merge" {
-		// git --git-dir=$GD/.git --work-tree=$GD merge test2
-		if out, err := exec.Command("git", "checkout", "master").Output(); err != nil {
-			log.Fatalf("Failed to checkout: %s - %s", err, out)
-		}
-		if out, err := exec.Command("git", "merge", *payload.PR.Head.Ref).Output(); err != nil {
-			log.Fatalf("Failed to merge: %s - %s", err, out)
-		}
-		if out, err := exec.Command("git", "push", "origin", "master").Output(); err != nil {
-			log.Fatalf("Failed to push: %s - %s", err, out)
-		}
+		runCmd(exec.Command("git", "checkout", "master"))
+		runCmd(exec.Command("git", "merge", *payload.PR.Head.Ref))
+		runCmd(exec.Command("git", "push", "origin", "master"))
+		fmt.Printf("done: merged\n")
 	}
-	fmt.Printf("success! payload: %s\n", payload)
 }
