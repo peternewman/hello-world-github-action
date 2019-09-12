@@ -68,7 +68,7 @@ func main() {
 	fmt.Printf("payload: %s\n", payload)
 	if *payload.Review.Body == "merge" {
 		runCmd(exec.Command("git", "checkout", "master"))
-		runCmd(exec.Command("git", "merge", *payload.PR.Head.Ref))
+		runCmd(exec.Command("git", "merge", fmt.Sprintf("origin/%s", *payload.PR.Head.Ref)))
 		runCmd(exec.Command("git", "push", "origin", "master"))
 		fmt.Printf("done: merged\n")
 	}
