@@ -51,11 +51,11 @@ func main() {
 	if err := payload.parseFile(path); err != nil {
 		log.Fatalf("Failed to parse payload json: %s", err)
 	}
-	if payload.Review.Body == "merge" {
-		if _, err := os.Exec("git", []string{"checkout", "master"}); err != nil {
+	if *payload.Review.Body == "merge" {
+		if _, err := exec.Command("git", "checkout", "master").Output(); err != nil {
 			log.Fatalf("Failed to checkout: %s", err)
 		}
-		if _, err := os.Exec("git", []string{"merge", payload.PR.Head.Ref}); err != nil {
+		if _, err := exec.Command("git", "merge", *payload.PR.Head.Ref).Output(); err != nil {
 			log.Fatalf("Failed to merge: %s", err)
 		}
 	}
