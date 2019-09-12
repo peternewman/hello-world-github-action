@@ -6,5 +6,4 @@ import (
 )
 
 func main() {
-	fmt.Printf("hello from `%s`\n", os.Getenv("GITHUB_EVENT_NAME"))
 }
