@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"os/exec"
 )
 
 type event struct {
@@ -49,6 +50,14 @@ func main() {
 	payload := new(event)
 	if err := payload.parseFile(path); err != nil {
 		log.Fatalf("Failed to parse payload json: %s", err)
+	}
+	if payload.Review.Body == "merge" {
+		if _, err := os.Exec("git", []string{"checkout", "master"}); err != nil {
+			log.Fatalf("Failed to checkout: %s", err)
+		}
+		if _, err := os.Exec("git", []string{"merge", payload.PR.Head.Ref}); err != nil {
+			log.Fatalf("Failed to merge: %s", err)
+		}
 	}
 	fmt.Printf("success! payload: %s\n", payload)
 }
