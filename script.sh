@@ -7,4 +7,4 @@ env
 echo "event:"
 cat $GITHUB_EVENT_PATH
 echo "workspace:"
-cat $GITHUB_WORKSPACE
+ls -la $GITHUB_WORKSPACE
