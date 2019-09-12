@@ -6,4 +6,5 @@ LABEL "com.github.actions.color"="green"
 
 WORKDIR /app
 COPY script.sh script.sh
-CMD ["/app/script.sh"]
+RUN apk --update add bash
+CMD ["bash", "/app/script.sh"]
