@@ -1,3 +1,9 @@
+FROM golang:alpine3.10 as build
+
+WORKDIR /build
+COPY main.go main.go
+RUN go build -o rultor .
+
 FROM alpine:3.10
 
 LABEL "com.github.actions.name"="Hello world action"
@@ -5,6 +11,5 @@ LABEL "com.github.actions.icon"="shield"
 LABEL "com.github.actions.color"="green"
 
 WORKDIR /app
-COPY script.sh script.sh
-RUN apk --update add bash
-CMD ["bash", "/app/script.sh"]
+COPY --from=build /build/rultor rultor
+CMD ["/app/rultor"]
