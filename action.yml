@@ -23,5 +23,5 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 runs:
-  using: 'bash'
-  main: 'action.sh'
+  using: 'docker'
+  image: 'Dockerfile'
