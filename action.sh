@@ -16,6 +16,10 @@ if [[ "${cmd}" == "merge" ]]; then
   head=$(jq -r .pull_request.head.ref ${GITHUB_EVENT_PATH})
   git config user.email me@rultor.com
   git config user.name rultor
+  set +x
+  git remote set-url --push origin \
+    https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+  set -x
   git checkout -B __rultor origin/${head}
   git checkout -B master origin/master
   git merge --no-ff __rultor

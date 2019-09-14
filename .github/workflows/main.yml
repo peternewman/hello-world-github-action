@@ -5,7 +5,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code into the Go module directory
+      - name: Checkout
         uses: actions/checkout@v1
       - name: Hello world
         uses: g4s8/hello-world-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
