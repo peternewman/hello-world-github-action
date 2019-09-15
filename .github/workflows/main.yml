@@ -9,6 +9,6 @@ jobs:
         uses: actions/checkout@v1
       - name: Hello world
         uses: g4s8/hello-world-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ENV_TEST: "hello-test"
+        with:
+          env_test: 'hello-test'
+          token: ${{ secrets.GITHUB_TOKEN }}
