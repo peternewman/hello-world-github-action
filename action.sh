@@ -3,7 +3,7 @@
 set -e
 set -x
 
-echo "ENV_TEST=${INPUT_ENV_TEST}"
+env
 
 if [[ "${GITHUB_EVENT_NAME}" != "pull_request_review" ]]; then
   echo "unsupported event: ${GITHUB_EVENT_NAME}"
