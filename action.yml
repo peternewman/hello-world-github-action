@@ -22,6 +22,13 @@
 ---
 name: 'Hello World'
 description: 'Greet someone and record the time'
+inputs:
+  env_test:
+    description: "testing environment"
+    required: true
+  token:
+    description: "github token"
+    requred: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
