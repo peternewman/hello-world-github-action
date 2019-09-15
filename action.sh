@@ -3,6 +3,8 @@
 set -e
 set -x
 
+echo "ENV_TEST=${ENV_TEST}"
+
 if [[ "${GITHUB_EVENT_NAME}" != "pull_request_review" ]]; then
   echo "unsupported event: ${GITHUB_EVENT_NAME}"
   exit 1
@@ -17,7 +19,7 @@ if [[ "${cmd}" == "merge" ]]; then
   git config user.email me@rultor.com
   git config user.name rultor
   git remote set-url --push origin \
-    https://oauth2:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+    https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
   git checkout -B __rultor origin/${head}
   git checkout -B master origin/master
   git merge --no-ff __rultor
