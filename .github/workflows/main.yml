@@ -8,7 +8,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Hello world
-        uses: g4s8/hello-world-github-action@master
+        uses: g4s8/rultor-action@master
         with:
-          env_test: 'hello-test'
           token: ${{ secrets.GITHUB_TOKEN }}
