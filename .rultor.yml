@@ -1,3 +1,5 @@
+install: |-
+  echo "all dependencies installed"
 merge:
   script: |-
     echo "merging"
