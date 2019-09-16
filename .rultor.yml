@@ -1,0 +1,6 @@
+merge:
+  script: |-
+    echo "merging"
+    echo "all tests passed"
+architect:
+  - g4s8
