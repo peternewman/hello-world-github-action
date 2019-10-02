@@ -1,13 +1,15 @@
 ---
 name: rultor
-"on": pull_request_review
+"on":
+  release:
+    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Rultor
-        uses: g4s8/rultor-action@master
+      - name: Overlay
+        uses: g4s8/update-overlay-action@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
