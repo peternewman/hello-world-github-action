@@ -28,7 +28,7 @@ inputs:
     required: true
   token:
     description: "github token"
-    requred: true
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
