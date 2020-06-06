@@ -17,6 +17,6 @@ func TestParsePayload(t *testing.T) {
 		t.Fatalf("Wrong user login: %s", *p.Review.User.Login)
 	}
 	if *p.PR.Head.Ref != "test" {
-		t.Fatalf("Wron head ref: %s", *p.PR.Head.Ref)
+		t.Fatalf("Wrong head ref: %s", *p.PR.Head.Ref)
 	}
 }
